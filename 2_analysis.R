@@ -225,6 +225,7 @@ publish(fit.hddrs.unexposed.rate, pvalue.method = "robust", confint.method = "ro
         print = F)$regressionTable[1:2,]
 
 ################################# Plot all results ################################
+#windows()
 plot_summs(fit.traditional, fit.hdps, fit.hddrs.full.logistic, fit.hddrs.full.survival, 
            fit.drs.full.hazard, fit.drs.full.rate, fit.hddrs.unexposed.logistic, 
            fit.hddrs.unexposed.survival, fit.hddrs.unexposed.hazard,fit.hddrs.unexposed.rate,
