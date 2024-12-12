@@ -17,19 +17,19 @@ load("Data/simdata.RData")
 proxies <- read.csv("Data/Proxy.csv", header = T)
 head(proxies)
 
-## 3-digit diagnostic codes from hospital records
+## 3-digit diagnostic codes from hospital database
 dat.diag <- subset(proxies, dim == "diag")
 dat.diag$code <- substr(dat.diag$code, start = 1, stop = 3)
 dat.diag$code[dat.diag$code==""] <- NA
 dat.diag <- na.omit(dat.diag)
 
-## 3-digit procedure codes from hospital records
+## 3-digit procedure codes from hospital database
 dat.proc <- subset(proxies, dim == "proc")
 dat.proc$code <- substr(dat.proc$code, start = 1, stop = 3)
 dat.proc$code[dat.proc$code==""] <- NA
 dat.proc <- na.omit(dat.proc)
 
-## 3-digit icd codes from claims data
+## 3-digit icd codes from physician claim database
 dat.msp <- subset(proxies, dim == "msp")
 dat.msp$code <- substr(dat.msp$code, start = 1, stop = 3)
 dat.msp$code[dat.msp$code==""] <- NA
@@ -47,7 +47,7 @@ dat.proxy <- rbind(dat.diag, dat.proc, dat.msp, dat.din)
 dat.proxy <- na.omit(dat.proxy)
 table(dat.proxy$dim, useNA = "always")
 
-################### Converting proxies into empirically identified variables################
+################### Converting proxies into empirically identified variables ################
 id <- simdat$studyid
 
 #### Generate candidate empirical covariates ####

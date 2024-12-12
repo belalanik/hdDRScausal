@@ -1,6 +1,7 @@
 library(survival)
 library(Publish)
 library(jtools)
+library(ggplot2)
 
 setwd("~/GitHub/hdDRScausal")
 
@@ -226,14 +227,22 @@ publish(fit.hddrs.unexposed.rate, pvalue.method = "robust", confint.method = "ro
 
 ################################# Plot all results ################################
 #windows()
-plot_summs(fit.traditional, fit.hdps, fit.hddrs.full.logistic, fit.hddrs.full.survival, 
-           fit.drs.full.hazard, fit.drs.full.rate, fit.hddrs.unexposed.logistic, 
-           fit.hddrs.unexposed.survival, fit.hddrs.unexposed.hazard,fit.hddrs.unexposed.rate,
-           scale = F, robust = TRUE,
-           coefs = c("tb.infection" = "TB infection"),
-           exp = TRUE,
-           legend.title = "Method",
-           model.names = c("Traditional", "hdPS", "hdDRS-Full-Logistic", "hdDRS-Full-Survival", 
-                           "hdDRS-Full-Hazard", "hdDRS-Full-Rate", "hdDRS-Unexposed-Logistic", 
-                           "hdDRS-Unexposed-Survival", "hdDRS-Unexposed-Hazard","hdDRS-Unexposed-Rate"))
+p1 <- plot_summs(fit.traditional, fit.hdps, fit.hddrs.full.logistic, fit.hddrs.full.survival, 
+                 fit.hddrs.full.hazard, fit.hddrs.full.rate, fit.hddrs.unexposed.logistic, 
+                 fit.hddrs.unexposed.survival, fit.hddrs.unexposed.hazard,fit.hddrs.unexposed.rate,
+                 coefs = c("TB infection" = "tb.infectionYes"),
+                 scale = F, 
+                 robust = TRUE,
+                 exp = TRUE,
+                 line.size = c(0.9, 2),
+                 facet.rows = 20,
+                 colors = c("#E31A1C", "green4", "dodgerblue2", "#6A3D9A", "#FF7F00", "black", "orchid1", 
+                            "steelblue4", "#FB9A99", "darkturquoise"),
+                 legend.title = "Method",
+                 model.names = c("Traditional", "hdPS", "hdDRS-Full-Logistic", "hdDRS-Full-Survival", 
+                                 "hdDRS-Full-Hazard", "hdDRS-Full-Rate", "hdDRS-Unexposed-Logistic", 
+                                 "hdDRS-Unexposed-Survival", "hdDRS-Unexposed-Hazard","hdDRS-Unexposed-Rate"))
+p1
 
+# Save plot
+ggsave("Figures/results.png", p1, width = 10, height = 8, units = "in", dpi = 300)
